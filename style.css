@@ -1,0 +1,40 @@
+.logo img{
+    border-radius: 50%;
+}
+.logo h3{
+    margin: auto;
+    background-color: rgb(175, 240, 122);
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    border-radius: 25px;
+}
+article section img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+aside .ads .place{
+    margin-top: 5%;
+    background-color: #4fb626;
+}
+table{
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid;
+}
+th , td{
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px 16px;
+}
+table thead{
+    background-color: aliceblue;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+.img-fluid{
+    border-radius: 25px;
+}

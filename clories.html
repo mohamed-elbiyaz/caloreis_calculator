@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>Calculate The Calories</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <div class="logo">
+                <div class="row mb-1 align-items-center">
+                    <div class="col-6">
+                        <img src="https://cdn.vectorstock.com/i/1000v/17/31/zero-calories-icon-0-kcal-vector-48591731.jpg" alt="logo" style="width: 60px;">
+                    </div>
+                    <h3 class="col-6">Calories Calculator with Biyaz</h3>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-white" href="#">Calories Calculator</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="#">About</a></li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search">
+                            <button class="btn btn-success text-white" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+    
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <article class="col-md-8">
+                <h1>Calculate Your Daily Calories</h1>
+                <img src="https://tinyurl.com/mrmzhc76" alt="Calories" class="img-fluid">
+            </article>
+            <aside class="col-md-4">
+                <div class="alert alert-warning">ADS Place.</div>
+            </aside>
+        </div>
+    </div>
+    
+    <div class="container-fluid mt-4">
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>النوع</th>
+                    <th>الشيء</th>
+                    <th>الكمية (grams)</th>
+                    <th>Calories</th>
+                    <th>حسب</th>
+                </tr>
+            </thead>
+            <tbody id="calorieTable">
+                <tr>
+                    <td>
+                        <select class="form-select" id="categorySelect" onchange="updateFoodOptions()">
+                            <option value="">ختار النوع لي باغي</option>
+                            <option value="meat">اللحوم</option>
+                            <option value="vegetables">الخضرة</option>
+                            <option value="fruits">الفواكه</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" id="foodSelect" onchange="calculateCalories()">
+                            <option value="0">عزل شي حاجة</option>
+                        </select>
+                    </td>
+                    <td><input type="number" class="form-control" id="quantity" value="100" min="1" oninput="calculateCalories()"></td>
+                    <td><h3 id="calories">0</h3></td>
+                    <td><button class="btn btn-success" onclick="saveEntry()">Save</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Total Calories: <span id="totalCalories">0</span></h3>
+    </div>
+    
+    <script>
+        let totalCalories = 0;
+        const foodOptions = {
+            meat: {
+                "الدجاج": 239,
+                "البقري": 250,
+                "السردين": 172,
+                "الطون": 130,
+                "كابليلا (الاسقمري)": 261,
+                "البيض (بيضة 1 = g 50 )": 155
+                //"Fish (100g)": 0
+
+            },
+            vegetables: {
+               "خيزو" :41,
+               " الخيار" :33,
+               "الخس" :14,
+               " الزيت البلدية" :884,
+               "الزيت الرومية" :900,
+               " بطاطا" :85,
+               "ماطيشة"  :22,
+               " البصلة" :39,
+               "بطاطا حلوة" :86,
+               " الفلفلة" :39,
+               "الباربا" :43,
+               " الكورجيط(courgette)" :17,
+               "دنجال" :25,
+               "القرعة حمرة" :26,
+               "لوبيا" :115,
+               " الجلبانة" :81,
+               "الذرا" :86,
+               " الفجل" :16
+
+            },
+            fruits: {
+                "البنان": 89,
+                "التفاح": 52,
+                "الليمون": 47,
+                "بوعويد": 57,
+                "الخوخ": 39,
+                "اناناس": 50,
+                "الدلاح": 30,
+                "كيوي": 61,
+                "المشماش": 48,
+                "لافوكا": 160,
+                "الهندية": 41,
+                "الفريز": 32,
+                "الرمان": 83,
+                "العنب": 69,
+                "حب الملوك": 50,
+                "الكرموس": 74,
+                "السويهلة": 34,
+                //"Apple (100g)": 0,
+            }
+        };
+
+        function updateFoodOptions() {
+            let category = document.getElementById('categorySelect').value;
+            let foodSelect = document.getElementById('foodSelect');
+            foodSelect.innerHTML = '<option value="0">ختار شي حاجة</option>';
+            
+            if (foodOptions[category]) {
+                for (let item in foodOptions[category]) {
+                    let option = document.createElement("option");
+                    option.text = item;
+                    option.value = foodOptions[category][item];
+                    foodSelect.add(option);
+                }
+            }
+        }
+
+        function calculateCalories() {
+            let caloriesPer100g = document.getElementById('foodSelect').value;
+            let quantity = document.getElementById('quantity').value;
+            let total = (caloriesPer100g * quantity) / 100;
+            document.getElementById('calories').textContent = total.toFixed(2);
+        }
+
+        function saveEntry() {
+            let categorySelect = document.getElementById('categorySelect');
+            let foodSelect = document.getElementById('foodSelect');
+            let selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
+            let selectedFood = foodSelect.options[foodSelect.selectedIndex].text;
+            let quantity = document.getElementById('quantity').value;
+            let calories = document.getElementById('calories').textContent;
+
+            if (selectedFood === "ختار شي حاجة" || quantity <= 0) {
+                alert("Please select a valid food item and quantity.");
+                return;
+            }
+
+            let table = document.getElementById('calorieTable');
+            let newRow = table.insertRow();
+
+            newRow.innerHTML = `
+                <td>${selectedCategory}</td>
+                <td>${selectedFood}</td>
+                <td>${quantity}g</td>
+                <td>${calories}</td>
+                <td><button class="btn btn-danger" onclick="deleteEntry(this, ${calories})">Delete</button></td>
+            `;
+
+            totalCalories += parseFloat(calories);
+            document.getElementById('totalCalories').textContent = totalCalories.toFixed(2);
+        }
+
+        function deleteEntry(button, calories) {
+            let row = button.parentElement.parentElement;
+            row.remove();
+            totalCalories -= parseFloat(calories);
+            document.getElementById('totalCalories').textContent = totalCalories.toFixed(2);
+        }
+    </script>
+    
+    <script src="bootstrap filles/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

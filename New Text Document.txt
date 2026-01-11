@@ -1,0 +1,40 @@
+<select class="form-select" id="foodSelect">
+                           <option value="239">خيزو (100g)</option>
+                            <option value="239">الخيار (100g)</option>
+                            <option value="239">الخس (100g)</option>
+                            <option value="239">الزيت البلدية (100g)</option>
+                            <option value="239">الزيت الرومية (100g)</option>
+                            <option value="239">بطاطا (100g)</option>
+                            <option value="239">ماطيشة (100g)</option>
+                            <option value="239">البصلة (100g)</option>
+                            <option value="239">بطاطا حلوة (100g)</option>
+                            <option value="239">الفلفلة (100g)</option>
+                            <option value="239">الباربا (100g)</option>
+                            <option value="239">الكورجيط(courgette) (100g)</option>
+                            <option value="239">دنجال (100g)</option>
+                            <option value="239">القرعة (100g)</option>
+                            <option value="239">لوبيا (100g)</option>
+                            <option value="239">الجلبانة (100g)</option>
+                            <option value="239">الذرا (100g)</option>
+                            <option value="239">الفجل (100g)</option>
+                        </select>
+
+
+
+
+
+
+
+fruits 
+
+<option value="52">تفاح (100g)</option>
+<option value="89">البنان (100g)</option>
+
+
+meat
+
+<option value="239">الدجاج (100g)</option>
+<option value="239">السردين (100g)</option>
+<option value="239">الطون (100g)</option>
+
+
